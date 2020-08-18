@@ -57,7 +57,7 @@ const NotificationForm = ({...props}) => {
         form.resetFields();
     };
 
-    const onSucess = (notificationText) => {
+    const onSuccess = (notificationText) => {
         onReset();
         //resetForm();
         window.alert(notificationText)
@@ -69,9 +69,9 @@ const NotificationForm = ({...props}) => {
         //e.preventDefault()
         //window.alert('Validation Successful')
         if (props.currentId == 0)
-            props.createNotification(values, onSucess('Notification Created'))
+            props.createNotification(values, onSuccess('Notification Created'))
         else
-            props.updateNotification(props.currentId, values, onSucess('Notification Updated'))
+            props.updateNotification(props.currentId, values, onSuccess('Notification Updated'))
         {/*if (validate()) {
             const onSuccess = () => {
                 onReset()
