@@ -57,15 +57,19 @@ const NotificationForm = ({...props}) => {
         form.resetFields();
     };
 
+    const onSucess = (message) => {
+        onReset();
+        window.alert(message)
+    }
     const handleFinish = (values) => {
         //props.createNotifications(values, () => window.alert('Notification Created'))
         console.log(values)
         //e.preventDefault()
         //window.alert('Validation Successful')
         if (props.currentId == 0)
-            props.createNotification(values, () => window.alert('Notification Created'))
+            props.createNotification(values, onSucess('Notification Created'))
         else
-            props.updateNotification(props.currentId, values, () => window.alert('Notification Updated'))
+            props.updateNotification(props.currentId, values, onSucess('Notification Updated'))
         {/*if (validate()) {
             const onSuccess = () => {
                 onReset()
@@ -103,7 +107,7 @@ const NotificationForm = ({...props}) => {
                     >
                         <TextArea
                             rows={4}
-                            placeholder="Enter Notification Text"
+                            placeholder="Enter Notification Message"
                             value = {values.message}
                             onChange={handleInputChange}
                         />

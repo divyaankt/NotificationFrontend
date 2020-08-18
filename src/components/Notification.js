@@ -62,18 +62,23 @@ const Notification = (props) => {
         if (window.confirm('Are you sure to delete this record?'))
             props.deleteNotification(id,window.alert('Deleted Successfully!!!'))
     }
+
     return (
         <>
             <Row>
                 <Col span = {8} >
                     <Content>
-                        <p>Notification Form</p>
+                        <p>
+                            <h3>Notification Form</h3>
+                        </p>
                     </Content>
                     <NotificationForm {...({currentId, setCurrentId})}/>    
                 </Col> 
                 <Col span = {16}>
                     <Content>
-                        <p>List of Notifications</p>
+                        <p>
+                            <h3>List of Notifications</h3>
+                        </p>
                     </Content>
                     {<Table dataSource = {Notifs} columns = {columns}/>}
                 </Col>
