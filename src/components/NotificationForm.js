@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
+import useForm from "./useForm";
+import { connect } from "react-redux";
+import * as actions from "../actions/NotificationActions";
 import {
     Form,
     Input,
@@ -9,10 +12,84 @@ import {
     Col
 } from 'antd';
 
-const NotificationForm = () => {
+const { TextArea } = Input;
+
+const initialFieldValues = {
+    message:'',
+    username:'',
+    startDate:'',
+    endDate:''
+}
+
+const NotificationForm = ({...props}) => {
     const [form] = Form.useForm();
+    const [formLayout, setFormLayout] = useState('horizontal');
+
+    const validate = (fieldValues = values) => {
+        let temp = { ...errors }
+        if ('message' in fieldValues)
+            temp.message = fieldValues.message ? "" : "This field is required."
+        if ('username' in fieldValues)
+            temp.username = fieldValues.username ? "" : "This field is required."
+        if ('startDate' in fieldValues)
+            temp.startDate = fieldValues.startDate ? "" : "This field is required."
+        if ('endDate' in fieldValues)
+            temp.endDate = fieldValues.endDate ? "" : "This field is required."
+        setErrors({
+            ...temp
+        })
+
+        if (fieldValues === values)
+            return Object.values(temp).every(x => x === "")
+    }
+
+    const {
+        values,
+        setValues,
+        errors,
+        setErrors,
+        handleInputChange,
+        resetForm
+    } = useForm(initialFieldValues, validate, props.setCurrentId)
+
+    
+    const onReset = () => {
+        form.resetFields();
+    };
+
+    const handleFinish = (values) => {
+        //props.createNotifications(values, () => window.alert('Notification Created'))
+        console.log(values)
+        //e.preventDefault()
+        //window.alert('Validation Successful')
+        if (props.currentId == 0)
+            props.createNotification(values, () => window.alert('Notification Created'))
+        else
+            props.updateNotification(props.currentId, values, () => window.alert('Notification Updated'))
+        {/*if (validate()) {
+            const onSuccess = () => {
+                onReset()
+            }
+            if (props.currentId == 0)
+                props.createNotification(values, onSuccess)
+            else
+                props.updateNotification(props.currentId, values, onSuccess)
+        } else {
+            window.alert('Could not perform operation:(')
+        }*/}
+    }
+
+    useEffect(() => {
+        if (props.currentId != 0) {
+            setValues({
+                ...props.NotificationList.find(x => x.id === props.currentId)
+            })
+            setErrors({})
+        }
+    }, [props.currentId])
+
     return (
-        <Form className="form-class">
+        <Form form={form} className="form-class" layout={formLayout} onFinish={values=>handleFinish(values)}>
             <Row>
                 <Col span={24}>
                     <Form.Item
@@ -24,7 +101,12 @@ const NotificationForm = () => {
                             },
                         ]}
                     >
-                        <Input />
+                        <TextArea
+                            rows={4}
+                            placeholder="Enter Notification Text"
+                            value = {values.message}
+                            onChange={handleInputChange}
+                        />
                     </Form.Item>
                     <Form.Item
                         name="username"
@@ -35,10 +117,14 @@ const NotificationForm = () => {
                             },
                         ]}
                     >
-                        <Input />
+                        <Input 
+                            placeholder="Name of Person to be notified"
+                            value = {values.username}
+                            onChange={handleInputChange}
+                        />
                     </Form.Item>
                     <Form.Item
-                        name="StartDate"
+                        name="startDate"
                         label="Start Date"
                         rules={[
                             {
@@ -46,10 +132,14 @@ const NotificationForm = () => {
                             },
                         ]}
                     >
-                        <Input />
+                        <Input 
+                            placeholder="Starting Date"
+                            value = {values.startDate}
+                            onChange={handleInputChange}
+                        />
                     </Form.Item>
                     <Form.Item
-                        name="EndDate"
+                        name="endDate"
                         label="End Date"
                         rules={[
                             {
@@ -57,7 +147,19 @@ const NotificationForm = () => {
                             },
                         ]}
                     >
-                        <Input />
+                        <Input 
+                            placeholder="Ending Date"
+                            value = {values.endDate}
+                            onChange={handleInputChange}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                        <Button htmlType="button" onClick={onReset}>
+                            Reset
+                        </Button>
                     </Form.Item>
                 </Col>
             </Row>
@@ -65,4 +167,13 @@ const NotificationForm = () => {
     )
 }
 
-export default NotificationForm
+const mapStateToProps = state => ({
+    NotificationList: state.NotificationReducer.list
+})
+
+const mapActionToProps = {
+    createNotification: actions.create,
+    updateNotification: actions.update
+}
+
+export default connect(mapStateToProps, mapActionToProps)(NotificationForm);
