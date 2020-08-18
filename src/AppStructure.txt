@@ -1,0 +1,28 @@
+App Structure
+-------------
+
+● src
++---● actions
+|   |
+|   |-- API.js (handle all http request, uses axios library)
+|   |-- NotificationActions.js (Redux actions & action creators) 
+|   |-- store.js (configure Redux store, using createStore)
+|
++---● components
+|   |
+|   |--NotificationForm.js (form operations) - child
+|   |--Notification.js  (list of messages) - parent
+|   |--FormFunctions.js (handles common form opearations, can be shared among forms)
+|
+|---● reducers
+|   |
+|   |--NotificationReducer.js
+|   |--AllReducers.js (Reducers for different components are combined here using combineReducers method)
+|
+|-- App.js
+|-- index.js
+|-- index.css
+|-- App.css (maintains Global CSS)
+
+Core Libraries used:
+redux, react-redux, redux-thunk, antd
