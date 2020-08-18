@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import useForm from "./useForm";
+import FormFunctions from "./FormFunctions";
 import { connect } from "react-redux";
 import * as actions from "../actions/NotificationActions";
 import {
@@ -50,7 +50,7 @@ const NotificationForm = ({...props}) => {
         setErrors,
         handleInputChange,
         resetForm
-    } = useForm(initialFieldValues, validate, props.setCurrentId)
+    } = FormFunctions(initialFieldValues, validate, props.setCurrentId)
 
     
     const onReset = () => {
@@ -58,12 +58,14 @@ const NotificationForm = ({...props}) => {
     };
 
     const onSucess = (message) => {
-        onReset();
+        //onReset();
+        resetForm();
         window.alert(message)
     }
     const handleFinish = (values) => {
         //props.createNotifications(values, () => window.alert('Notification Created'))
         console.log(values)
+        console.log(props.currentId)
         //e.preventDefault()
         //window.alert('Validation Successful')
         if (props.currentId == 0)
@@ -161,7 +163,7 @@ const NotificationForm = ({...props}) => {
                         <Button type="primary" htmlType="submit">
                             Submit
                         </Button>
-                        <Button htmlType="button" onClick={onReset}>
+                        <Button htmlType="button" onClick={resetForm}>
                             Reset
                         </Button>
                     </Form.Item>

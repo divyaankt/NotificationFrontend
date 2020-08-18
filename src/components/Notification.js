@@ -8,6 +8,11 @@ const { Content } = Layout;
 
 const columns = [
     {
+        title: 'No.',
+        dataIndex: 'key',
+        key: 'key',
+    },
+    {
         title: 'Message',
         dataIndex: 'notifMessage',
         key: 'notifMessage',
@@ -41,10 +46,19 @@ const columns = [
 
 const Notification = (props) => {
     const [currentId, setCurrentId] = useState(0)
+
+    useEffect(() => {
+        props.fetchAllNotifications()
+    }, [])
     
+    const onDelete = id => {
+        if (window.confirm('Are you sure to delete this record?'))
+            props.deleteNotification(id, window.alert('Deleted Successfully!!!'))
+    }
+
     const Notifs = props.NotificationList.map((record, index) => {
         return {
-            key: index,
+            key: index+1,
             notifMessage: record.notificationText,
             startDate: record.startDate,
             endDate: record.endDate,
@@ -54,15 +68,7 @@ const Notification = (props) => {
         }
     })
 
-    useEffect(()=>{
-        props.fetchAllNotifications()
-    },[])
-
-    const onDelete = id => {
-        if (window.confirm('Are you sure to delete this record?'))
-            props.deleteNotification(id,window.alert('Deleted Successfully!!!'))
-    }
-
+    
     return (
         <>
             <Row>

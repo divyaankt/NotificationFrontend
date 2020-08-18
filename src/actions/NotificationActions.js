@@ -9,10 +9,10 @@ export const ACTION_TYPES = {
 
 export const fetchAll = () => dispatch => {
     API.NotificationMsg().fetchAll()
-        .then(response => {
+        .then(res => {
             dispatch({
                 type: ACTION_TYPES.FETCH_ALL,
-                payload: response.data
+                payload: res.data
             })
         })
         .catch(err => console.log(err))

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 
-const useForm = (initialFieldValues, validate, setCurrentId) => {
+const FormFunctions = (initialFieldValues, validate, setCurrentId) => {
     const [values, setValues] = useState(initialFieldValues)
     const [errors, setErrors] = useState({})
 
 
-    const handleInputChange= e => {
+    const handleInputChange = e => {
         const { name, value } = e.target
         const fieldValue = { [name]: value }
 
@@ -34,4 +34,4 @@ const useForm = (initialFieldValues, validate, setCurrentId) => {
     }
 }
 
-export default useForm;
+export default FormFunctions;
