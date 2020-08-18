@@ -14,8 +14,8 @@ const columns = [
     },
     {
         title: 'Message',
-        dataIndex: 'notifMessage',
-        key: 'notifMessage',
+        dataIndex: 'message',
+        key: 'message',
     },
     {
         title: 'StartDate',
@@ -59,7 +59,7 @@ const Notification = (props) => {
     const Notifs = props.NotificationList.map((record, index) => {
         return {
             key: index+1,
-            notifMessage: record.notificationText,
+            message: record.notificationText,
             startDate: record.startDate,
             endDate: record.endDate,
             userName: record.username,

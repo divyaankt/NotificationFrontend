@@ -15,7 +15,7 @@ import {
 const { TextArea } = Input;
 
 const initialFieldValues = {
-    message:'',
+    notificationText:'',
     username:'',
     startDate:'',
     endDate:''
@@ -27,8 +27,8 @@ const NotificationForm = ({...props}) => {
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
-        if ('message' in fieldValues)
-            temp.message = fieldValues.message ? "" : "This field is required."
+        if ('notificationText' in fieldValues)
+            temp.notificationText = fieldValues.notificationText ? "" : "This field is required."
         if ('username' in fieldValues)
             temp.username = fieldValues.username ? "" : "This field is required."
         if ('startDate' in fieldValues)
@@ -57,10 +57,10 @@ const NotificationForm = ({...props}) => {
         form.resetFields();
     };
 
-    const onSucess = (message) => {
-        //onReset();
-        resetForm();
-        window.alert(message)
+    const onSucess = (notificationText) => {
+        onReset();
+        //resetForm();
+        window.alert(notificationText)
     }
     const handleFinish = (values) => {
         //props.createNotifications(values, () => window.alert('Notification Created'))
@@ -99,7 +99,7 @@ const NotificationForm = ({...props}) => {
             <Row>
                 <Col span={24}>
                     <Form.Item
-                        name="message"
+                        name="notificationText"
                         label="Message"
                         rules={[
                             {
@@ -109,8 +109,8 @@ const NotificationForm = ({...props}) => {
                     >
                         <TextArea
                             rows={4}
-                            placeholder="Enter Notification Message"
-                            value = {values.message}
+                            placeholder="Enter Notification Text"
+                            value = {values.notificationText}
                             onChange={handleInputChange}
                         />
                     </Form.Item>
