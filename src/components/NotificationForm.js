@@ -163,7 +163,7 @@ const NotificationForm = ({...props}) => {
                         <Button type="primary" htmlType="submit">
                             Submit
                         </Button>
-                        <Button htmlType="button" onClick={resetForm}>
+                        <Button htmlType="button" onClick={onReset}>
                             Reset
                         </Button>
                     </Form.Item>
