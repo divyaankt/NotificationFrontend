@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import '../App.css';
 import { connect } from "react-redux";
 import * as actions from "../actions/NotificationActions";
 import { Row, Col, Table, Layout, Button } from 'antd';
 import NotificationForm from "./NotificationForm";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-const { Content } = Layout;
+const { Header, Content } = Layout;
 
 const columns = [
     {
@@ -75,7 +76,7 @@ const Notification = (props) => {
                 <Col span = {8} >
                     <Content>
                         <p>
-                            <h3>Notification Form</h3>
+                            <h3 style={{padding: "10px"}}>Notification Form</h3>
                         </p>
                     </Content>
                     <NotificationForm {...({currentId, setCurrentId})}/>    
@@ -83,10 +84,12 @@ const Notification = (props) => {
                 <Col span = {16}>
                     <Content>
                         <p>
-                            <h3>List of Notifications</h3>
+                            <h3 style={{padding: "10px"}}>List of Notifications</h3>
                         </p>
                     </Content>
-                    {<Table dataSource = {Notifs} columns = {columns}/>}
+                    <div className = "list-class">
+                        {<Table dataSource = {Notifs} columns = {columns}/>}
+                    </div>
                 </Col>
             </Row>
         </>
