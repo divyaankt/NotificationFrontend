@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseUrl = "https://localhost:44322/api/"
 
-
+//This API uses axios, fetch() can also be used
 export default {
 
     NotificationMsg(url = baseUrl + 'NotificationMessage/') {

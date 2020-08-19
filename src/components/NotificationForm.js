@@ -25,6 +25,7 @@ const NotificationForm = ({...props}) => {
     const [form] = Form.useForm();
     const [formLayout, setFormLayout] = useState('horizontal');
 
+    //The validation function written here is buggy
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
         if ('notificationText' in fieldValues)
@@ -52,7 +53,7 @@ const NotificationForm = ({...props}) => {
         resetForm
     } = FormFunctions(initialFieldValues, validate, props.setCurrentId)
 
-    
+    //Reset function provided by built-in Form component of Ant-Design
     const onReset = () => {
         form.resetFields();
     };
@@ -62,10 +63,11 @@ const NotificationForm = ({...props}) => {
         //resetForm();
         window.alert(notificationText)
     }
+    //For correct validate and edit function, the commented-out if-else statement should be used 
     const handleFinish = (values) => {
-        //props.createNotifications(values, () => window.alert('Notification Created'))
         console.log(values)
         console.log(props.currentId)
+        //e.preventDefault doesn't work for some reason, tried resolving it
         //e.preventDefault()
         //window.alert('Validation Successful')
         if (props.currentId == 0)
@@ -85,6 +87,7 @@ const NotificationForm = ({...props}) => {
         }*/}
     }
 
+    //Edit function
     useEffect(() => {
         if (props.currentId != 0) {
             setValues({

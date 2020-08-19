@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
+//This file contains common form functions that can be used by other forms
 const FormFunctions = (initialFieldValues, validate, setCurrentId) => {
     const [values, setValues] = useState(initialFieldValues)
     const [errors, setErrors] = useState({})
@@ -16,6 +17,7 @@ const FormFunctions = (initialFieldValues, validate, setCurrentId) => {
         validate(fieldValue)
     }
 
+    //This is a buggy function, is important for Edit functionality
     const resetForm = () => {
         setValues({
             ...initialFieldValues

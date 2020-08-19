@@ -45,8 +45,9 @@ const columns = [
     }
 ];
 
+//This component displays the list of Notifications on the RHS
 const Notification = (props) => {
-    const [currentId, setCurrentId] = useState(0)
+    const [currentId, setCurrentId] = useState(0) //Used for Edit and Delete Functionality
 
     useEffect(() => {
         props.fetchAllNotifications()
@@ -57,9 +58,10 @@ const Notification = (props) => {
             props.deleteNotification(id, window.alert('Deleted Successfully!!!'))
     }
 
+    //Each Row in the List of Notifications
     const Notifs = props.NotificationList.map((record, index) => {
         return {
-            key: index+1,
+            key: index+1, //Increment index by 1 as it is 0-based
             message: record.notificationText,
             startDate: record.startDate,
             endDate: record.endDate,
@@ -69,7 +71,7 @@ const Notification = (props) => {
         }
     })
 
-    
+    //As seen below, I have used Ant-Design's Grid Layout system for dividing the page into 2 sections
     return (
         <>
             <Row>
@@ -96,6 +98,7 @@ const Notification = (props) => {
     )
 }
 
+//Important functions for Redux
 const mapStateToProps = state => ({
     NotificationList: state.NotificationReducer.list
 })
